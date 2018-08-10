@@ -1,9 +1,6 @@
-import React from 'react';
-//Ant Design
-import { Input } from 'antd';
-import 'antd/dist/antd.css';
+import * as React from 'react';
 //Material UI
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,8 +8,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { TextField } from '../../node_modules/@material-ui/core';
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => createStyles({
    root: {
       color: 'white'
    },
@@ -20,21 +18,23 @@ const styles = (theme) => ({
       paddingTop: '10rem'
    },
    inputSection: {
-      margin: 30,
-      backgroundColor: 'red'
+      margin: 30
    },
    input: {
-      marginBottom: 20
+      marginBottom: 20,
+      minWidth: 300
    },
    button: {
       margin: theme.spacing.unit,
    },
    btn: {
-      textAlign: 'center'
+      alignItems: 'center'
    }
 });
 
-const LogIn = (props) => {
+type LogInProps = WithStyles<typeof styles>
+
+const LogIn = (props: LogInProps) => {
    const { classes } = props;
 
    return (
@@ -52,13 +52,24 @@ const LogIn = (props) => {
          <Grid item xs={12} md={4} alignItems='center'>
             <Card>
                <CardHeader>
-                  <Ty
                </CardHeader>
                <CardContent>
-                  <Input size='large' className={classes.input} placeholder='Email Address' />
-                  <Input size='large' className={classes.input} placeholder='Password' />
+                  <div className={classes.inputSection}>
+                     <TextField
+                        id="email"
+                        label="Email"
+                        margin="dense"
+                        className={classes.input}
+                     />
+                     <TextField
+                        id="password"
+                        label="Password"
+                        margin="dense"
+                        className={classes.input}
+                     />
+                  </div>
                </CardContent>
-               <CardActions >
+               <CardActions className={classes.btn}>
                   <div className={classes.btn}>
                      <Button
                         variant='contained'
@@ -76,4 +87,3 @@ const LogIn = (props) => {
    )
 }
 export default withStyles(styles)(LogIn);
-
